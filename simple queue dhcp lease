@@ -1,0 +1,6 @@
+:local queueName "MGMT - $"lease-hostname"";
+:if ($leaseBound = "1") do={
+    /queue simple add name=$queueName target=($leaseActIP . "/32") limit-at=1000k/1500k max-limit=1000k/1500k parent=MGMT;
+} else={
+    /queue simple remove $queueName
+}
