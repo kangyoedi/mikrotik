@@ -1,0 +1,10 @@
+:local WANinterface wan;
+:local IPBaru [/ip address get [find where interface=$WANinterface] address];
+:set IPBaru [:pick $IPBaru 0 ([:len $IPBaru]-3)];
+#Mencari IP-PUBLIC
+:if ($IPBaru ~"^[0-9]*10" || $IPBaru ~"^[0-9]*172" || $IPBaru ~"^[0-9]*36") do={
+    :log warning "$IPBaru -> Private ip address.";
+    /interface pppoe-client enable $WANinterface;
+} else={
+    :log warning "$IPBaru -> IP-PUBLIC"; 
+}
